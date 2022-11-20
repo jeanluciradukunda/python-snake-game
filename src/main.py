@@ -3,8 +3,14 @@ import time
 
 from pygame.locals import *
 
+"""
+    This is the main file for the game. It will be the file that is run to start the game.
+    It will be responsible for creating the window, and running the game loop.
+    Resources:
+    https://youtu.be/8dfePlONtls?list=PLyuuFBQATZK785lLIN_z0EvQPzjfksTZ2
+"""
 
-# class snake with block object
+
 class Snake:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
@@ -35,6 +41,7 @@ class Snake:
         self.direction = "down"
 
     def walk(self) -> None:
+        """Moves the player in the direction the player is currently facing."""
         if self.direction == "left":
             self.x -= 10
         if self.direction == "right":
