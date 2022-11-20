@@ -1,4 +1,6 @@
 import pygame
+import time
+
 from pygame.locals import *
 
 
@@ -9,6 +11,7 @@ class Snake:
         self.block = pygame.image.load("resources/block.jpg").convert()
         self.x = 100
         self.y = 100
+        self.direction = "down"
 
     def draw(self):
         self.parent_screen.fill((110, 110, 5))
@@ -17,22 +20,29 @@ class Snake:
 
     # move left
     def move_left(self):
-        self.x -= 10
-        self.draw()
+        self.direction = "left"
 
     # move right
     def move_right(self):
-        self.x += 10
-        self.draw()
+        self.direction = "right"
 
     # move up
     def move_up(self):
-        self.y -= 10
-        self.draw()
+        self.direction = "up"
 
     # move down
     def move_down(self):
-        self.y += 10
+        self.direction = "down"
+
+    def walk(self) -> None:
+        if self.direction == "left":
+            self.x -= 10
+        if self.direction == "right":
+            self.x += 10
+        if self.direction == "up":
+            self.y -= 10
+        if self.direction == "down":
+            self.y += 10
         self.draw()
 
 
@@ -46,7 +56,7 @@ class Game:
         self.snake = Snake(self.surface)
         self.snake.draw()
 
-    def run(self):
+    def run(self) -> None:
         while True:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -62,6 +72,8 @@ class Game:
                 elif event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+            self.snake.walk()
+            time.sleep(0.2)
 
 
 if __name__ == "__main__":
